@@ -1,69 +1,50 @@
 <script>
-import Header from "./components/Header.svelte";
-export let name;
+  import { Router, Link, Route } from "svelte-routing";
+  import Home from "./routes/Home.svelte";
+  import Login from "./routes/Login.svelte";
+  import Plans from "./routes/Plans.svelte";
+  import SingleProduct from "./routes/SingleProduct.svelte";
+  import Header from "./components/Header.svelte";
+  import Thankyou from "./routes/Thankyou.svelte";
+  import Gallery from "./routes/Gallery.svelte";
 
-
+  export let url = "";
 </script>
 
-<main>
-<Header></Header>
-	<section class="header">
-		<div class="header-elements">
-			<div>logo</div>
-			<div>menu</div>
-		</div>
-	</section>
-	<section class="background">
-		<div class="background-elements">
-			<div class="divisor">
-				<div>
-					<h1>{name}</h1>
-					<button>Saber Más</button>
-				</div>
-			</div>
-			<div>
-			<img src="./img/sin-amor-no-hay-aprendizaje.jpg" alt="imagen_1">
-			</div>
-			
-		</div>
-	</section>
-	
-</main>
+<Router {url}>
+  <Header />
+
+  <Route path="/">
+    <Home />
+    <Plans />
+    <Gallery />
+  </Route>
+
+  <Route path="login">
+    <Login />
+  </Route>
+
+  <Route path="producto/:id" let:params>
+    <SingleProduct id={params.id} />
+  </Route>
+  <Route path="Thankyou">
+    <Thankyou />
+  </Route>
+</Router>
+
+<section class="footer" />
 
 <style>
-:global(body){
-color:#424242;
-}
+  :global(body) {
+    color: #424242;
+  }
 
-:global(:root){
-	--theme-color-main:#470205;
-	--theme-color-secondary:#424242;
-}
+  :global(:root) {
+    --theme-color-main: #470205;
+    --theme-color-secondary: #424242;
+  }
 
-
-.divisor{
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.header-elements{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	background-color:#E5FCF5;
-	padding: 20px 0px 20px 0px;
-}
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+  .footer {
+    height: 50px;
+  }
 </style>
